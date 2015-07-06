@@ -1,21 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Foundation;
+using System;
+using System.CodeDom.Compiler;
 using UIKit;
 
 namespace Xam_iOS
 {
-	public class LoginViewController : UIViewController
-    {
-		public override void ViewDidLoad()
+
+	partial class LoginViewController : UIViewController
+	{
+		public LoginViewController (IntPtr handle) : base (handle)
 		{
-			base.ViewDidLoad();
-
-			// Perform any additional setup after loading the view, typically from a nib.
-
+			
 		}
-    }
+
+		partial void loginPressed (UIButton sender){
+			Console.WriteLine("Button pressed {0}",sender);
+		}
+
+	}
 }

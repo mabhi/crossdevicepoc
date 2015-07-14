@@ -18,14 +18,22 @@ namespace Xam_iOS
 		UIKit.UIActivityIndicatorView actVwIndicator { get; set; }
 
 		[Outlet]
+		UIKit.UIView contentView { get; set; }
+
+		[Outlet]
 		UIKit.UITextField pswdTxtField { get; set; }
+
+		[Outlet]
+		UIKit.UIScrollView scrollView { get; set; }
 
 		[Outlet]
 		UIKit.UITextField unameTxtField { get; set; }
 
-		[Action ("loginPressed:")]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		partial void loginPressed (UIButton sender);
+		[Outlet]
+		UIKit.UITextField termsTxtField { get; set; }
+
+		[Outlet]
+		UIKit.UIButton loginBtn { get; set; }
 
 		void ReleaseDesignerOutlets ()
 		{

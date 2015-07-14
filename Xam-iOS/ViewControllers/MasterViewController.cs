@@ -9,12 +9,12 @@ namespace Xam_iOS
     public partial class MasterViewController : UITableViewController
     {
         DataSource dataSource;
-
+        Boolean loggedIn;
         public MasterViewController(IntPtr handle)
             : base(handle)
         {
             Title = NSBundle.MainBundle.LocalizedString("Master", "Master");
-
+            loggedIn = false;
             // Custom initialization
         }
 
@@ -45,11 +45,23 @@ namespace Xam_iOS
             NavigationItem.RightBarButtonItem = addButton;
 
             TableView.Source = dataSource = new DataSource(this);
+            
         }
+
+        public override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
+            if (!loggedIn)
+            {
+                this.NavigationController.PerformSegue("ShowLoginViewControllerIdentifier", this);
+                loggedIn = true;
+            }
+        }
+
 
         class DataSource : UITableViewSource
         {
-            static readonly NSString CellIdentifier = new NSString("Cell");
+            static readonly NSString CellIdentifier = new NSString("CreateOrderCell");
             readonly List<object> objects = new List<object>();
             readonly MasterViewController controller;
 
@@ -126,7 +138,11 @@ namespace Xam_iOS
                 var indexPath = TableView.IndexPathForSelectedRow;
                 var item = dataSource.Objects[indexPath.Row];
 
-                ((DetailViewController)segue.DestinationViewController).SetDetailItem(item);
+               // ((DetailViewController)segue.DestinationViewController).SetDetailItem(item);
+            }
+            else if (segue.Identifier == "ShowLoginViewControllerIdentifier")
+            {
+
             }
         }
     }

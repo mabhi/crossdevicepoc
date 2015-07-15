@@ -118,4 +118,10 @@
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PortableCode\PortableCode.csproj">
+      <Project>{451e77d5-4c14-415e-ac57-7840fa496712}</Project>
+      <Name>PortableCode</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

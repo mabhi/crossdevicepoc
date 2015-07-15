@@ -4,6 +4,7 @@ using System.CodeDom.Compiler;
 using UIKit;
 using CoreGraphics;
 using System.Threading.Tasks;
+using PortableCode.Models;
 
 namespace Xam_iOS
 {
@@ -22,7 +23,7 @@ namespace Xam_iOS
 		 void loginPressed (object sender, EventArgs e){
 			Console.WriteLine("Button pressed {0}",sender);
             actVwIndicator.StartAnimating();
-        
+            await this.AuthenticateAsync();
 		}
         
 
@@ -96,6 +97,12 @@ namespace Xam_iOS
             else
                 sender.ResignFirstResponder();
             return true;
+        }
+
+        private async Task<User> AuthenticateAsync()
+        {
+            User authenticatedUser = null;
+            return authenticatedUser;
         }
 
         protected override void Dispose(bool disposing)

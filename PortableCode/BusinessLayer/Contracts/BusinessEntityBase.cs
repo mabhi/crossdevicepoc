@@ -30,7 +30,9 @@ namespace PortableCode.BusinessLayer.Contracts {
 		[PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-    
+		public static string BaseURL(){
+			return "http://tcsnewgensfapoc.azurewebsites.net/";
+		}
 
   }
 }

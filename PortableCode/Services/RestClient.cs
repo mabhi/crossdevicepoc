@@ -13,7 +13,7 @@ public enum HttpVerb
 }
 
 
-namespace RestTest
+namespace PortableCode.Services
 {
     public static class ContentTypeIdentifiers{
         public const string kContentTypeJSON = "application/json";
@@ -26,32 +26,37 @@ namespace RestTest
         public HttpVerb Method { get; set; }
         public string ContentType { get; set; }
         public string PostData { get; set; }
-        
-        public RestClient() : this("")
-        {
-            
-        }
-        public RestClient(string endpoint) : this(endpoint,HttpVerb.GET)
-        {
-            
-        }
+        /**
+         * RestClient with no end points mentioned.Default none end-point Note : invalid scenario 
+         */
+        public RestClient() : this(""){}
 
-        public RestClient(string endpoint, HttpVerb method): this(endpoint,method,"")
-        {
-            
-        }
+		/**
+         * RestClient with an end point as parameter. Default: Get request type 
+         */
+        public RestClient(string endpoint) : this(endpoint,HttpVerb.GET){}
 
-        public RestClient(string endpoint, HttpVerb method, string postData) : this(endpoint,method,postData,ContentTypeIdentifiers.kContentTypeJSON)
-        {
-        }
+		/**
+         * RestClient with an end point, Get request type and Default: no post data.
+         */
+        public RestClient(string endpoint, HttpVerb method): this(endpoint,method,""){}
 
+
+		/**
+         * RestClient with an end point, Get request type and post data. Default Content-Type : applicaton/JSON
+         */
+        public RestClient(string endpoint, HttpVerb method, string postData) : this(endpoint,method,postData,ContentTypeIdentifiers.kContentTypeJSON){}
+
+
+		/**
+         * RestClient with an end point, request type, post-data if any and content type
+         */
         public RestClient (string endpoint, HttpVerb method, string postData,string contentTypeIdentifier)
         {
             EndPoint = endpoint;
             Method = method;
             ContentType = contentTypeIdentifier;
             PostData = postData;
-  
         }
 
         public async Task<string> MakeRequestAsync()
@@ -61,6 +66,7 @@ namespace RestTest
         
         public async Task<string> MakeRequestAsync(string parameters)
         {
+
             //Initialize an HttpWebRequest for the current URL
             var request = (HttpWebRequest)WebRequest.Create(EndPoint + parameters);
 
@@ -97,13 +103,14 @@ namespace RestTest
                     throw new ApplicationException(message);
                 }
 
-                // grab the response
+				// grab the response,Get a stream representation of the HTTP web response:
+
                 using (var responseStream = response.GetResponseStream())
                 {
                     if (responseStream != null)
                         using (var reader = new StreamReader(responseStream))
                         {
-                            responseValue = reader.ReadToEnd();
+							responseValue = await reader.ReadToEndAsync();
                         }
                 }
 

@@ -40,5 +40,15 @@ namespace PortableCode.Models
 
         public bool IsDirty { get; set; }
 
+		/**
+		 * This method returns the authenticate string component of the API.
+		 * Parameters- username : The user id used for authenticating and Password: secret key.
+		 */ 
+		public static string GetAuthenticateURL (string username, string password)
+		{
+			return String.Format("api/users/{0}/{1}",username,password);
+		}
+
+
     }
 }

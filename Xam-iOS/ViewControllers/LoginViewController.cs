@@ -1,10 +1,12 @@
 using Foundation;
 using System;
 using System.CodeDom.Compiler;
+using System.Net.Http;
 using UIKit;
 using CoreGraphics;
 using System.Threading.Tasks;
 using PortableCode.Models;
+using PortableCode.Services;
 
 namespace Xam_iOS
 {
@@ -20,10 +22,18 @@ namespace Xam_iOS
 			
 		}
         
-		 void loginPressed (object sender, EventArgs e){
-			Console.WriteLine("Button pressed {0}",sender);
+		 public async void loginPressed (object sender, EventArgs e){
             actVwIndicator.StartAnimating();
-            await this.AuthenticateAsync();
+            await AuthenticateAsync();
+            if (null != UserWebservice.Instance.CurrentUser)
+            {
+                this.DismissViewController(true, () =>
+                {
+                });
+
+            }
+            actVwIndicator.StopAnimating();
+
 		}
         
 
@@ -99,10 +109,37 @@ namespace Xam_iOS
             return true;
         }
 
-        private async Task<User> AuthenticateAsync()
+        private async Task AuthenticateAsync()
         {
-            User authenticatedUser = null;
-            return authenticatedUser;
+            
+                var client = UserWebservice.Instance.MobileWebClient;
+                if (client == null)
+                    return;
+
+                try
+                {
+                    await UserWebservice.Instance.AuthenticateWithCredentialsAsync(unameTxtField.Text, pswdTxtField.Text);
+                            
+                }
+                catch (HttpRequestException ex)
+                {
+                    Console.WriteLine("Http Request failed {0}", ex.Message);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    Console.WriteLine("Invalid Request failed {0}", ex.Message);
+
+                    var message = "You must log in. Login Required\n" + ex.Message;
+                    var alert = new UIAlertView("Login", message, null, "OK", null);
+                    alert.Show();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generic failed {0}", ex.Message);
+                    var alert = new UIAlertView("Login", ex.Message, null, "OK", null);
+                    alert.Show();
+                }
+            
         }
 
         protected override void Dispose(bool disposing)

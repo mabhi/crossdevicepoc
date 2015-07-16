@@ -96,11 +96,11 @@ namespace PortableCode.Services
              */ 
             {
                 var responseValue = string.Empty;
-
-                if (response.StatusCode != HttpStatusCode.OK)
+                
+                if (((HttpWebResponse)response).StatusCode != HttpStatusCode.OK)
                 {
-                    var message = String.Format("Request failed. Received HTTP {0}", response.StatusCode);
-                    throw new ApplicationException(message);
+                    var message = String.Format("Request failed. Received HTTP {0}", ((HttpWebResponse)response).StatusCode);
+                    throw new HttpRequestException(message);
                 }
 
 				// grab the response,Get a stream representation of the HTTP web response:

@@ -4,20 +4,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PortableCode.Models;
+using Newtonsoft.Json;
 
 namespace PortableCode.Services
 {
     public class UserWebservice
     {
-		public User currentUser;
+
+        private APIError _anyError;
+        private RestClient _restClient;
+        private User _currentUser;
 		static readonly UserWebservice instance = new UserWebservice();
         /// <summary>
         /// Gets the instance of the Azure Web Service
         /// </summary>
-		private RestClient restClient {get; set;}
+		public RestClient MobileWebClient {
+            get
+            {
+                return _restClient;
+            }
+        }
 
-		private UserWebservice(){
-			restClient = new RestClient (User.BaseURL);
+        public APIError Error
+        {
+            get
+            {
+                return _anyError;
+            }
+        }
+
+        public User CurrentUser
+        {
+            get
+            {
+                return _currentUser;
+            }
+        }
+
+        private UserWebservice(){
+			_restClient = new RestClient (User.BaseURL());
+            _currentUser = null;
+            _anyError = null;
 		}
 			
         public static UserWebservice Instance
@@ -29,10 +56,17 @@ namespace PortableCode.Services
         }
 
 
-		public async Task<string> AuthenticateWithCredentialsAsync(string username, string password){
+		public async Task AuthenticateWithCredentialsAsync(string username, string password){
 
-			var responseString = await restClient.MakeRequestAsync (User.GetAuthenticateURL(username,password));				
-			return responseString;
+			var responseString = await _restClient.MakeRequestAsync (User.GetAuthenticateURL(username,password));
+            try
+            {
+                _currentUser = JsonConvert.DeserializeObject<User>(responseString);
+            }
+            catch (JsonException ex)
+            {
+                _anyError = JsonConvert.DeserializeObject<APIError>(responseString);
+            }
 		}
     }
 }

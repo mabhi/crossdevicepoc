@@ -60,7 +60,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="GCF-38-2Lk"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 <variation key="heightClass=compact-widthClass=compact" misplaced="YES">
                                                     <rect key="frame" x="188" y="146" width="26" height="30"/>
                                                 </variation>

@@ -41,6 +41,7 @@
     <Compile Include="BusinessLayer\Contracts\BusinessEntityBase.cs" />
     <Compile Include="Interfaces\IBusinessEntity.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Models\APIError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\RestClient.cs" />

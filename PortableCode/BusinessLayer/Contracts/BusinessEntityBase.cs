@@ -13,7 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.using System;
 
-using SQLite.Net.Attributes;
+//using SQLite.Net.Attributes;
 
 namespace PortableCode.BusinessLayer.Contracts {
 	/// <summary>
@@ -27,11 +27,11 @@ namespace PortableCode.BusinessLayer.Contracts {
 		/// <summary>
 		/// Gets or sets the Database ID.
 		/// </summary>
-		[PrimaryKey, AutoIncrement]
+//		[PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
 		public static string BaseURL(){
-			return "http://tcsnewgensfapoc.azurewebsites.net/";
+			return "http://newgensfapoc.azurewebsites.net/";
 		}
 
   }

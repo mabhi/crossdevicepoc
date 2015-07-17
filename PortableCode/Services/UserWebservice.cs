@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using PortableCode.Models;
 using Newtonsoft.Json;
+using System.Net.Http;
+using PortableCode.Exceptions;
 
 namespace PortableCode.Services
 {
@@ -58,11 +60,14 @@ namespace PortableCode.Services
 
 		public async Task AuthenticateWithCredentialsAsync(string username, string password){
 
-			var responseString = await _restClient.MakeRequestAsync (User.GetAuthenticateURL(username,password));
-            try
-            {
+			try
+			{
+				var responseString = await _restClient.MakeRequestAsync (User.GetAuthenticateURL(username,password));
                 _currentUser = JsonConvert.DeserializeObject<User>(responseString);
             }
+			catch (HttpRequestException ex){
+				throw new CustomHttpException (ex.Message);
+			}
             catch (JsonException ex)
             {
                 _anyError = JsonConvert.DeserializeObject<APIError>(responseString);

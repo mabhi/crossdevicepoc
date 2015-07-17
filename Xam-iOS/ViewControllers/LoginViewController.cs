@@ -1,12 +1,12 @@
 using Foundation;
 using System;
 using System.CodeDom.Compiler;
-using System.Net.Http;
 using UIKit;
 using CoreGraphics;
 using System.Threading.Tasks;
 using PortableCode.Models;
 using PortableCode.Services;
+using PortableCode.Exceptions;
 
 namespace Xam_iOS
 {
@@ -121,7 +121,7 @@ namespace Xam_iOS
                     await UserWebservice.Instance.AuthenticateWithCredentialsAsync(unameTxtField.Text, pswdTxtField.Text);
                             
                 }
-                catch (HttpRequestException ex)
+			catch (CustomHttpException ex)
                 {
                     Console.WriteLine("Http Request failed {0}", ex.Message);
                 }

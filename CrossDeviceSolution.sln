@@ -11,6 +11,13 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedVS", "SharedVS\Shared
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortableCode", "PortableCode\PortableCode.csproj", "{451E77D5-4C14-415E-AC57-7840FA496712}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{64453126-F329-4036-B0F5-BAAB2FDA0BC7}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		SharedVS\SharedVS.projitems*{564f0af1-50e3-4ab4-a3b1-9a73882c3f3b}*SharedItemsImports = 13

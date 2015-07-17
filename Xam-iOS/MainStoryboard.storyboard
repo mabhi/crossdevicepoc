@@ -223,7 +223,7 @@
         </scene>
         <scene sceneID="120">
             <objects>
-                <tableViewController id="121" sceneMemberID="viewController" customClass="MasterViewController" title="Create Order">
+                <tableViewController id="121" sceneMemberID="viewController" customClass="MasterViewController" title="Customer List">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="122">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -247,6 +247,11 @@
                         <barButtonItem id="344" translatesAutoresizingMaskIntoConstraints="NO" key="rightBarButtonItem" systemItem="add">
                             <connections>
                                 <segue id="473" destination="326" kind="show"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Log Out" id="480" translatesAutoresizingMaskIntoConstraints="NO" key="leftBarButtonItem">
+                            <connections>
+                                <segue id="1083" destination="6" kind="presentation"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

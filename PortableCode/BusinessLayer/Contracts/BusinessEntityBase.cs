@@ -14,7 +14,6 @@
 //    limitations under the License.using System;
 
 using SQLite.Net.Attributes;
-
 namespace PortableCode.BusinessLayer.Contracts {
 	/// <summary>
 	/// Business entity base class. Provides the ID property.

@@ -59,10 +59,10 @@ namespace PortableCode.Services
 
 
 		public async Task AuthenticateWithCredentialsAsync(string username, string password){
-
+            var responseString = string.Empty;
 			try
 			{
-				var responseString = await _restClient.MakeRequestAsync (User.GetAuthenticateURL(username,password));
+				 responseString = await _restClient.MakeRequestAsync (User.GetAuthenticateURL(username,password));
                 _currentUser = JsonConvert.DeserializeObject<User>(responseString);
             }
 			catch (HttpRequestException ex){

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Net.Http;
 using System.Runtime.Serialization;
 
 namespace PortableCode.Exceptions
 {
-	[Serializable()]
-	public class CustomHttpException : HttpRequestException
+//	[DataContract]
+	public class CustomHttpException : Exception
 	{
 
 		public CustomHttpException()
@@ -23,8 +22,7 @@ namespace PortableCode.Exceptions
 			public CustomHttpException(string format, Exception innerException, params object[] args)
 				: base(string.Format(format, args), innerException) { }
 
-			protected CustomHttpException(SerializationInfo info, StreamingContext context)
-				: base(info, context) { }
+//			protected CustomHttpException(SerializationInfo info, StreamingContext context)	: base(info, context) { }
 		
 	}
 }

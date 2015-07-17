@@ -3,18 +3,18 @@ using System.Drawing;
 using System.Collections.Generic;
 using Foundation;
 using UIKit;
+using PortableCode.Services;
 
 namespace Xam_iOS
 {
     public partial class MasterViewController : UITableViewController
     {
         DataSource dataSource;
-        Boolean loggedIn;
+//        static bool isLogged;
         public MasterViewController(IntPtr handle)
             : base(handle)
         {
             Title = NSBundle.MainBundle.LocalizedString("Master", "Master");
-            loggedIn = false;
             // Custom initialization
         }
 
@@ -39,8 +39,6 @@ namespace Xam_iOS
             base.ViewDidLoad();
 
             // Perform any additional setup after loading the view, typically from a nib.
-            NavigationItem.LeftBarButtonItem = EditButtonItem;
-
             var addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, AddNewItem);
             NavigationItem.RightBarButtonItem = addButton;
 
@@ -51,10 +49,11 @@ namespace Xam_iOS
         public override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
-            if (!loggedIn)
+            if (null == UserWebservice.Instance.CurrentUser)
+//            if(!isLogged)
             {
                 this.NavigationController.PerformSegue("ShowLoginViewControllerIdentifier", this);
-                loggedIn = true;
+ //               isLogged = true;
             }
         }
 

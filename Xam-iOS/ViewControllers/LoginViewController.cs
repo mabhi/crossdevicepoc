@@ -23,19 +23,35 @@ namespace Xam_iOS
 		}
         
 		 public async void loginPressed (object sender, EventArgs e){
+            if(null != this.activeTxtField)
+               this.activeTxtField.ResignFirstResponder();
             actVwIndicator.StartAnimating();
+            UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
             await AuthenticateAsync();
             if (null != UserWebservice.Instance.CurrentUser)
             {
+                
                 this.DismissViewController(true, () =>
                 {
                 });
 
             }
             actVwIndicator.StopAnimating();
-
+            UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 		}
-        
+
+         public override void ViewDidDisappear(bool animated)
+         {
+             base.ViewDidDisappear(animated);
+             RemoveListenersAndObservers();
+         }
+
+         public override void ViewDidAppear(bool animated)
+         {
+             base.ViewDidAppear(animated);
+             AddListenersAndObservers();
+            
+         }
 
 		public override void ViewDidLoad ()
 		{
@@ -46,28 +62,13 @@ namespace Xam_iOS
 
 			View.AddConstraint (leftConstraint);
 			View.AddConstraint (rightConstraint);
-
-           didShowNotification = UIKeyboard.Notifications.ObserveDidShow(keyboardDidShowHandler);
-           didHideNotification = UIKeyboard.Notifications.ObserveDidHide(keyboardDidHideHandler);
-            
-            unameTxtField.EditingDidBegin += textFieldBeginEditing;
-            pswdTxtField.EditingDidBegin += textFieldBeginEditing;
-			termsTxtField.EditingDidBegin += textFieldBeginEditing;
-
-            unameTxtField.EditingDidEnd += textFieldEndEditing;
-            pswdTxtField.EditingDidEnd += textFieldEndEditing;
-			termsTxtField.EditingDidEnd += textFieldEndEditing;
-
-            unameTxtField.ShouldReturn += textFieldShouldReturnHandler;
-            pswdTxtField.ShouldReturn += textFieldShouldReturnHandler;
-			termsTxtField.ShouldReturn += textFieldShouldReturnHandler;
-
-			loginBtn.TouchUpInside += loginPressed;
+           
 		}
 
-        void keyboardDidShowHandler(object sender, UIKit.UIKeyboardEventArgs args)
+        void keyboardDidShowHandler(object notification)
         {
-            CGRect kbRect = args.FrameBegin;
+            NSValue nsKeyboardBounds = (NSValue)((NSNotification)notification).UserInfo.ObjectForKey(UIKeyboard.FrameBeginUserInfoKey);
+            CGRect kbRect = nsKeyboardBounds.CGRectValue;
             CGRect convRect = this.View.ConvertRectFromView(kbRect,null);
             UIEdgeInsets contentInsets = new UIEdgeInsets(0, 0, convRect.Height, 0);
             this.scrollView.ContentInset = contentInsets;
@@ -81,7 +82,7 @@ namespace Xam_iOS
                 this.scrollView.ScrollRectToVisible(this.activeTxtField.Frame,true);
         }
 
-        void keyboardDidHideHandler(object sender, UIKit.UIKeyboardEventArgs args)
+        void keyboardDidHideHandler(object sender)
         {
             UIEdgeInsets resetInsets = new UIEdgeInsets();
             this.scrollView.ContentInset = resetInsets;
@@ -121,7 +122,7 @@ namespace Xam_iOS
                     await UserWebservice.Instance.AuthenticateWithCredentialsAsync(unameTxtField.Text, pswdTxtField.Text);
                             
                 }
-			catch (CustomHttpException ex)
+			    catch (CustomHttpException ex)
                 {
                     Console.WriteLine("Http Request failed {0}", ex.Message);
                 }
@@ -144,12 +145,55 @@ namespace Xam_iOS
 
         protected override void Dispose(bool disposing)
         {
-
-            didHideNotification.Dispose();
-            didShowNotification.Dispose();
-            activeTxtField.Dispose();
+            Console.WriteLine("Disposed {0}", disposing);
             base.Dispose(disposing);
 
+        }
+
+        protected void RemoveListenersAndObservers()
+        {
+            NSNotificationCenter.DefaultCenter.RemoveObserver(didHideNotification);
+            NSNotificationCenter.DefaultCenter.RemoveObserver(didShowNotification);
+            
+            unameTxtField.EditingDidBegin -= textFieldBeginEditing;
+            pswdTxtField.EditingDidBegin -= textFieldBeginEditing;
+            termsTxtField.EditingDidBegin -= textFieldBeginEditing;
+
+            unameTxtField.EditingDidEnd -= textFieldEndEditing;
+            pswdTxtField.EditingDidEnd -= textFieldEndEditing;
+            termsTxtField.EditingDidEnd -= textFieldEndEditing;
+
+            unameTxtField.ShouldReturn -= textFieldShouldReturnHandler;
+            pswdTxtField.ShouldReturn -= textFieldShouldReturnHandler;
+            termsTxtField.ShouldReturn -= textFieldShouldReturnHandler;
+
+            loginBtn.TouchUpInside -= loginPressed;
+
+        }
+
+        protected void AddListenersAndObservers()
+        {
+            didShowNotification = NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.DidShowNotification,keyboardDidShowHandler);
+            didHideNotification = NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.DidHideNotification,keyboardDidHideHandler);
+
+            unameTxtField.EditingDidBegin += textFieldBeginEditing;
+            pswdTxtField.EditingDidBegin += textFieldBeginEditing;
+            termsTxtField.EditingDidBegin += textFieldBeginEditing;
+
+            unameTxtField.EditingDidEnd += textFieldEndEditing;
+            pswdTxtField.EditingDidEnd += textFieldEndEditing;
+            termsTxtField.EditingDidEnd += textFieldEndEditing;
+
+            unameTxtField.ShouldReturn += textFieldShouldReturnHandler;
+            pswdTxtField.ShouldReturn += textFieldShouldReturnHandler;
+            termsTxtField.ShouldReturn += textFieldShouldReturnHandler;
+
+            loginBtn.TouchUpInside += loginPressed;
+        }
+
+        ~LoginViewController()
+        {
+            Console.Write("destructor");
         }
         
     }

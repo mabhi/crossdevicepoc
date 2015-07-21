@@ -58,12 +58,28 @@ namespace PortableCode.Services
         }
 
 
-		public async Task AuthenticateWithCredentialsAsync(string username, string password){
-            var responseString = string.Empty;
+	
+
+        public async Task<List<Customer>> GetCustomersInTerritoryAsync(int territoryId)
+        {
+            String responseAsString = await InvokeWebserviceAtURLAsync(Customer.GetCustomersInTerritoryURL(territoryId));
+            List<Customer> listOfCustomers = JsonConvert.DeserializeObject<List<Customer>>(responseAsString);
+            return listOfCustomers;
+        }
+
+        public async Task AuthenticateWithCredentialsAsync(string username, string password)
+        {
+            String responseAsString = await InvokeWebserviceAtURLAsync(User.GetAuthenticateURL(username, password));
+            _currentUser = JsonConvert.DeserializeObject<User>(responseAsString);
+
+        }
+
+        private async Task<String> InvokeWebserviceAtURLAsync(string URLString)
+        {
+             var responseString = string.Empty;
 			try
 			{
-				 responseString = await _restClient.MakeRequestAsync (User.GetAuthenticateURL(username,password));
-                _currentUser = JsonConvert.DeserializeObject<User>(responseString);
+				 responseString = await _restClient.MakeRequestAsync (URLString);
             }
 			catch (HttpRequestException ex){
 				throw new CustomHttpException (ex.Message);
@@ -72,6 +88,9 @@ namespace PortableCode.Services
             {
                 _anyError = JsonConvert.DeserializeObject<APIError>(responseString);
             }
-		}
+
+            return responseString;
+            
+        } 
     }
 }

@@ -16,14 +16,14 @@ namespace PortableCode.Models
         [JsonProperty/*(PropertyName = "Password")*/]
         public string Password { get; set; }
 
-        [JsonProperty/*(PropertyName = "TeritorryId")*/]
-        public int TeritorryId { get; set; }
+        [JsonProperty(PropertyName = "TeritorryId")]
+        public int TerritoryId { get; set; }
 
         public User()
         {
             UserId = string.Empty;
             Password = string.Empty;
-            TeritorryId = int.MinValue;
+            TerritoryId = int.MinValue;
         }
 
         public User(User anUser)
@@ -35,7 +35,7 @@ namespace PortableCode.Models
         {
           this.UserId = anUser.UserId;
           this.Password = anUser.Password;
-          this.TeritorryId = anUser.TeritorryId;
+          this.TerritoryId = anUser.TerritoryId;
         }
 
         public bool IsDirty { get; set; }

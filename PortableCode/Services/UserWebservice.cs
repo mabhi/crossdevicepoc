@@ -58,7 +58,9 @@ namespace PortableCode.Services
         }
 
 
-	
+		public void InvalidateCurrentUser(){
+			_currentUser = null;
+		}
 
         public async Task<List<Customer>> GetCustomersInTerritoryAsync(int territoryId)
         {

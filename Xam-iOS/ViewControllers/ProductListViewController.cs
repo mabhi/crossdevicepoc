@@ -6,6 +6,7 @@ using UIKit;
 
 namespace Xam_iOS
 {
+	[Register ("ProductListViewController")]
 	public class ProductListViewController : UITableViewController
 	{
 		public ProductListViewController () : base (UITableViewStyle.Grouped)

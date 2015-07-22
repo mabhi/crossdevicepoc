@@ -28,12 +28,12 @@ namespace PortableCode.Models
             OrgTypeId = int.MinValue;
         }
 
-        public static string GetAllOrgUnits()
+        public static string GetAllOrgUnitsURL()
         {
             return "api/OrgUnits";
         }
 
-        public static string GetOrgUnitDetail(int orgUnitId)
+        public static string GetOrgUnitDetailURL(int orgUnitId)
         {
             return String.Format("api/OrgUnits/{0}",orgUnitId);
         }

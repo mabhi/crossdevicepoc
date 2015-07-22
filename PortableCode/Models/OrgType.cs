@@ -21,12 +21,12 @@ namespace PortableCode.Models
             OrgTypeName = String.Empty;
         }
 
-        public static string GetAllOrgTypes()
+        public static string GetAllOrgTypesURL()
         {
             return "api/OrgTypes";
         }
 
-        public static string GetOrgTypeDetail(int orgUnitId)
+        public static string GetOrgTypeDetailURL(int orgUnitId)
         {
             return String.Format("api/OrgTypes/{0}", orgUnitId);
         }

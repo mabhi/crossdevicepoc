@@ -46,6 +46,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\OrgType.cs" />
     <Compile Include="Models\OrgUnit.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\RestClient.cs" />

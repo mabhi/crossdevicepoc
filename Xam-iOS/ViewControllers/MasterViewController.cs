@@ -45,7 +45,7 @@ namespace Xam_iOS
             // Perform any additional setup after loading the view, typically from a nib.
             var addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, AddNewItem);
             NavigationItem.RightBarButtonItem = addButton;
-
+            TableView.AllowsMultipleSelection = false;
             TableView.Source = dataSource = new DataSource(this);
 
         }
@@ -58,8 +58,11 @@ namespace Xam_iOS
 				this.NavigationController.PerformSegue ("ShowLoginViewControllerIdentifier", this);
 				//               isLogged = true;
 			} else {
+                UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 				await GetAllUsersForCurrentTerritory ();
-				TableView.ReloadData ();
+                TableView.ReloadData();
+                UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+				
 			}
         }
 
@@ -94,10 +97,15 @@ namespace Xam_iOS
             // Customize the appearance of table view cells.
             public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
             {
-                var cell = (UITableViewCell)tableView.DequeueReusableCell(CellIdentifier, indexPath);
+                UITableViewCell cell = (UITableViewCell)tableView.DequeueReusableCell(CellIdentifier, indexPath);
 				Customer theCustomer = Objects [indexPath.Row];
 				cell.TextLabel.Text = theCustomer.CustomerName;
-
+                cell.DetailTextLabel.Text = theCustomer.OrgUnitEntity.OrgName;
+                cell.SelectionStyle = UITableViewCellSelectionStyle.None;
+                if (cell.Selected)
+                    cell.Accessory = UITableViewCellAccessory.Checkmark;
+                else
+                    cell.Accessory = UITableViewCellAccessory.None;
                 return cell;
             }
 
@@ -134,8 +142,25 @@ namespace Xam_iOS
                 return true;
             }
             */
-        }
+            //
 
+            public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+            {
+                UITableViewCell theCell = tableView.CellAt(indexPath);
+                theCell.Accessory = UITableViewCellAccessory.Checkmark;
+                theCell.Selected = true;
+             
+            }
+
+            public override void RowDeselected(UITableView tableView, NSIndexPath indexPath)
+            {
+                UITableViewCell theCell = tableView.CellAt(indexPath);
+                theCell.Accessory = UITableViewCellAccessory.None;
+                theCell.Selected = false;
+            }
+
+        }
+        
         public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
         {
             if (segue.Identifier == "showDetail")
@@ -149,14 +174,33 @@ namespace Xam_iOS
             {
 				UserWebservice.Instance.InvalidateCurrentUser();
 				dataSource.Objects.RemoveRange (0, dataSource.Objects.Count);
-				TableView.ReloadData ();
+                
             }
         }
 
 		private async Task GetAllUsersForCurrentTerritory(){
 			User theUser = UserWebservice.Instance.CurrentUser;
-			List<Customer> allCustomers = await UserWebservice.Instance.GetCustomersInTerritoryAsync (theUser.TerritoryId);
-			dataSource.Objects = allCustomers;
+            try{
+			    List<Customer> allCustomers = await UserWebservice.Instance.GetCustomersInTerritoryAsync (theUser.TerritoryId);
+                Customer anyCustomer = allCustomers[0];
+
+                OrgUnit territory = await UserWebservice.Instance.GetParticularTerritoryAsync(anyCustomer.TerritoryId);
+                allCustomers.ForEach((theCustomer) =>
+                {
+                    theCustomer.OrgUnitEntity = territory;
+
+                });
+                dataSource.Objects = allCustomers;
+
+            }
+            catch(IndexOutOfRangeException ex){
+                Console.WriteLine("Customer unavailable = {0}",ex.Message);
+            }
+            catch (NullReferenceException ex){
+                Console.WriteLine("Customer unavailable = {0}",ex.Message);
+            }
+
+            }
 		}
-    }
+    
 }

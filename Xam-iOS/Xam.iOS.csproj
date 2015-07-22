@@ -90,6 +90,10 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="ProductCollectionViewController.cs" />
+    <Compile Include="ProductCollectionViewController.designer.cs">
+      <DependentUpon>ProductCollectionViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewControllers\ProductListCell.cs" />
     <Compile Include="ViewControllers\ProductListSource.cs" />
     <Compile Include="ViewControllers\ProductListViewController.cs" />

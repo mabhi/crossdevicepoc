@@ -30,7 +30,7 @@ namespace PortableCode.Services
          * RestClient with no end points mentioned.Default none end-point Note : invalid scenario 
          */
         public RestClient() : this(""){}
-
+        
 		/**
          * RestClient with an end point as parameter. Default: Get request type 
          */
@@ -68,8 +68,10 @@ namespace PortableCode.Services
         {
 
             //Initialize an HttpWebRequest for the current URL
-            var request = (HttpWebRequest)WebRequest.Create(EndPoint + parameters);
-
+            String URLString = EndPoint + parameters;
+            System.Diagnostics.Debug.WriteLine("URL -> {0}", URLString);
+            var request = (HttpWebRequest)WebRequest.Create(URLString);
+            
             request.Method = Method.ToString();
             request.ContentType = ContentType;
             /*

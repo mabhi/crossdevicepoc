@@ -16,7 +16,7 @@ namespace Xam_iOS
         
         NSObject didShowNotification,didHideNotification;
         UITextField activeTxtField;
-
+        
 		public LoginViewController (IntPtr handle) : base (handle)
 		{
 			

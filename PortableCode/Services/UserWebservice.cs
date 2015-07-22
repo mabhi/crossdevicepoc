@@ -76,11 +76,18 @@ namespace PortableCode.Services
 
         }
 
+        public async Task<OrgUnit> GetParticularTerritoryAsync(int territoryId)
+        {
+            String responseAsString = await InvokeWebserviceAtURLAsync(OrgUnit.GetOrgUnitDetailURL(territoryId));
+            return JsonConvert.DeserializeObject<OrgUnit>(responseAsString);
+        }
+
         private async Task<String> InvokeWebserviceAtURLAsync(string URLString)
         {
              var responseString = string.Empty;
 			try
 			{
+                
 				 responseString = await _restClient.MakeRequestAsync (URLString);
             }
 			catch (HttpRequestException ex){

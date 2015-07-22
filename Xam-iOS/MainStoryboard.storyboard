@@ -231,7 +231,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CustomerCell" id="125" style="IBUITableViewCellStyleSubtitle" textLabel="1093" detailTextLabel="1094">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CustomerCell" textLabel="1093" detailTextLabel="1094" style="IBUITableViewCellStyleSubtitle" id="125">
                                 <rect key="frame" x="0.0" y="22" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="125" id="126">
@@ -269,7 +269,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="344">
                             <connections>
-                                <segue destination="thr-pT-Mre" kind="show" id="473"/>
+                                <segue destination="thr-pT-Mre" kind="presentation" identifier="SelectProductsSegue" id="473"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -278,7 +278,6 @@
             </objects>
             <point key="canvasLocation" x="911" y="-245"/>
         </scene>
-        <!--Product List View Controller-->
         <!--Navigation Controller-->
         <scene sceneID="ycV-gi-yan">
             <objects>
@@ -289,30 +288,34 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections/>
+                    <connections>
+                        <segue destination="1098" kind="relationship" relationship="rootViewController" id="j0p-JQ-FGr"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SyX-6U-Q3o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1803" y="-251"/>
         </scene>
+        <!--Product List-->
         <scene sceneID="1097">
             <objects>
-                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="1098" sceneMemberID="viewController" customClass="ProductCollectionViewController" storyboardIdentifier="ProductCollectionViewController" title="Product List">
+                <collectionViewController storyboardIdentifier="ProductCollectionViewController" autoresizesArchivedViewToFullSize="NO" title="Product List" id="1098" customClass="ProductCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="1099">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1103">
-                            <size key="itemSize" width="50" height="50"/>
+                            <size key="itemSize" width="100" height="100"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="1102">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -323,6 +326,9 @@
                             <outlet property="delegate" destination="1098" id="1101"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" title="Product List" id="gAW-Mt-rNc">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="i4W-jK-UXH"/>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1104" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

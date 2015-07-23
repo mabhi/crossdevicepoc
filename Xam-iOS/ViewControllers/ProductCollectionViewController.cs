@@ -47,13 +47,38 @@ namespace Xam_iOS
 			Product theProduct = Products [indexPath.Row];
 
 			if (productCell.Selected) {
-				productCell.checkMarkImage.Image = UIImage.FromBundle ("placeholder.png"); 
+				productCell.checkMarkImage.Image = UIImage.FromBundle ("delcheck.png"); 
 			} else
 				productCell.checkMarkImage.Image = null;
 			
 			productCell.productNameTxtLabel.Text = theProduct.ProductName;
 
 			return productCell;
+		}
+
+		public override void ItemHighlighted (UICollectionView collectionView, NSIndexPath indexPath)
+		{
+			var cell = collectionView.CellForItem (indexPath);
+			cell.ContentView.BackgroundColor = UIColor.Yellow;
+		}
+
+		public override void ItemUnhighlighted (UICollectionView collectionView, NSIndexPath indexPath)
+		{
+			var cell = collectionView.CellForItem (indexPath);
+			cell.ContentView.BackgroundColor = UIColor.White;
+		}
+
+		public override void ItemDeselected(UICollectionView collectionView, NSIndexPath indexPath){
+			var cell = collectionView.CellForItem (indexPath) as ProductListCell;
+			cell.checkMarkImage.Image = null;
+			cell.Selected = false;
+
+		}
+
+		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath){
+			var cell = collectionView.CellForItem (indexPath) as ProductListCell;
+			cell.checkMarkImage.Image = UIImage.FromBundle ("delcheck.png");
+			cell.Selected = true;
 		}
 
 		private void InitialViewSetup(){

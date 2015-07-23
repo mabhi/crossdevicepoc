@@ -6,6 +6,7 @@ using UIKit;
 using PortableCode.Services;
 using PortableCode.Models;
 using System.Threading.Tasks;
+using Xam_iOS.ViewController.Constants;
 
 namespace Xam_iOS
 {
@@ -22,6 +23,7 @@ namespace Xam_iOS
 
         void AddNewItem(object sender, EventArgs args)
         {
+			this.PerformSegue (SegueConstants.ProductSelectionIdentifier, this);
 			/*
             dataSource.Objects.Insert(0, DateTime.Now);
 
@@ -42,7 +44,7 @@ namespace Xam_iOS
         {
             base.ViewDidLoad();
 
-            // Perform any additional setup after loading the view, typically from a nib.
+			// Perform any additional setup after loading the view, typically from a nib.
             var addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, AddNewItem);
             NavigationItem.RightBarButtonItem = addButton;
             TableView.AllowsMultipleSelection = false;
@@ -53,9 +55,10 @@ namespace Xam_iOS
         public async override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
+
 			if (null == UserWebservice.Instance.CurrentUser)
  			{//            if(!isLogged)
-				this.NavigationController.PerformSegue ("ShowLoginViewControllerIdentifier", this);
+				this.NavigationController.PerformSegue (SegueConstants.LoginPresentationIdentifier, this);
 				//               isLogged = true;
 			} else {
                 UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
@@ -64,12 +67,13 @@ namespace Xam_iOS
                 UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 				
 			}
+
         }
 
 
         class DataSource : UITableViewSource
         {
-            static readonly NSString CellIdentifier = new NSString("CustomerCell");
+			static readonly NSString CellIdentifier = new NSString(CellIdentifierConstants.CustomerListCellIdentifier);
 			public List<Customer> Objects { get; set; }
             readonly MasterViewController controller;
 
@@ -170,7 +174,7 @@ namespace Xam_iOS
 
                // ((DetailViewController)segue.DestinationViewController).SetDetailItem(item);
             }
-            else if (segue.Identifier == "ShowLoginViewControllerIdentifier")
+			else if (segue.Identifier == SegueConstants.LoginPresentationIdentifier)
             {
 				UserWebservice.Instance.InvalidateCurrentUser();
 				dataSource.Objects.RemoveRange (0, dataSource.Objects.Count);

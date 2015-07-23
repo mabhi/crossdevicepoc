@@ -3,18 +3,36 @@ using System;
 
 using Foundation;
 using UIKit;
+using CoreGraphics;
+using Xam_iOS.ViewController.Constants;
 
 namespace Xam_iOS
 {
-	public class ProductListCell : UITableViewCell
+	[Register ("ProductListCell")]
+	public class ProductListCell : UICollectionViewCell
 	{
-		public static readonly NSString Key = new NSString ("ProductListCell");
+		public static readonly NSString Key = new NSString (CellIdentifierConstants.ProductListCellIdentifier);
 
-		public ProductListCell () : base (UITableViewCellStyle.Value1, Key)
+		UIImageView imageView;
+
+		[Export ("initWithFrame:")]
+		public ProductListCell (CGRect frame) : base (frame)
 		{
-			// TODO: add subviews to the ContentView, set various colors, etc.
-			TextLabel.Text = "TextLabel";
+			BackgroundView = new UIView{BackgroundColor = UIColor.Orange};
+			SelectedBackgroundView = new UIView{BackgroundColor = UIColor.Green};
+
+			ContentView.Layer.BorderColor = UIColor.LightGray.CGColor;
+			ContentView.Layer.BorderWidth = 2.0f;
+			ContentView.BackgroundColor = UIColor.White;
+			ContentView.Transform = CGAffineTransform.MakeScale (0.8f, 0.8f);
 		}
+
+		public UIImage Image {
+			set {
+				imageView.Image = value;
+			}
+		}
+
 	}
 }
 

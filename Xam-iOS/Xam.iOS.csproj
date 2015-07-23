@@ -90,13 +90,8 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="ProductCollectionViewController.cs" />
-    <Compile Include="ProductCollectionViewController.designer.cs">
-      <DependentUpon>ProductCollectionViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="ViewControllers\ProductListCell.cs" />
     <Compile Include="ViewControllers\ProductListSource.cs" />
-    <Compile Include="ViewControllers\ProductListViewController.cs" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,6 +100,14 @@
       <DependentUpon>LoginViewController.cs</DependentUpon>
     </Compile>
     <None Include="packages.config" />
+    <Compile Include="ViewControllers\ProductCollectionViewController.cs" />
+    <Compile Include="ViewControllers\ProductCollectionViewController.designer.cs">
+      <DependentUpon>ProductCollectionViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\Constants\ProjectConstants.cs" />
+    <Compile Include="ViewControllers\ProductListCell.designer.cs">
+      <DependentUpon>ProductListCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewControllers\MasterViewController.cs" />
@@ -158,5 +161,21 @@
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-87.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-80.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-120.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-180.png" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default.png" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Landscape%402x~ipad.png" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Landscape~ipad.png" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Portrait%402x~ipad.png" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Portrait~ipad.png" />
+    <ImageAsset Include="Resources\Images.xcassets\cigarette.imageset\cigarette.png" />
+    <ImageAsset Include="Resources\Images.xcassets\cigarette.imageset\cigarette%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\cigarette.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\delcheck.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\delcheck.imageset\delcheck.png" />
+    <ImageAsset Include="Resources\Images.xcassets\delcheck.imageset\delcheck%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewControllers\Constants\" />
   </ItemGroup>
 </Project>

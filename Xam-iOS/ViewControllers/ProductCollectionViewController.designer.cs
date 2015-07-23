@@ -14,6 +14,9 @@ namespace Xam_iOS
 	[Register ("ProductCollectionViewController")]
 	partial class ProductCollectionViewController
 	{
+		[Outlet]
+		UIKit.UIBarButtonItem CancelBBItem { get; set; }
+
 		void ReleaseDesignerOutlets ()
 		{
 		}

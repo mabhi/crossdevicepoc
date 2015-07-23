@@ -23,6 +23,7 @@ namespace Xam_iOS
 		}
         
 		 public async void loginPressed (object sender, EventArgs e){
+			
             if(null != this.activeTxtField)
                this.activeTxtField.ResignFirstResponder();
             actVwIndicator.StartAnimating();
@@ -34,10 +35,11 @@ namespace Xam_iOS
                 this.DismissViewController(true, () =>
                 {
                 });
-
+			
             }
             actVwIndicator.StopAnimating();
             UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+            
 		}
 
          public override void ViewDidDisappear(bool animated)

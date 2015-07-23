@@ -6,8 +6,10 @@ using UIKit;
 
 namespace Xam_iOS
 {
-	public class ProductListSource : UITableViewSource
+	public class ProductListSource 
+		//: UITableViewSource
 	{
+		/*
 		public ProductListSource ()
 		{
 		}
@@ -45,6 +47,7 @@ namespace Xam_iOS
 			
 			return cell;
 		}
+		*/
 	}
 }
 

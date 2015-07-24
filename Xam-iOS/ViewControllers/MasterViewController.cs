@@ -23,7 +23,13 @@ namespace Xam_iOS
 
         void AddNewItem(object sender, EventArgs args)
         {
-			this.PerformSegue (SegueConstants.ProductSelectionIdentifier, this);
+			var indexPath = TableView.IndexPathForSelectedRow;
+			if (null == indexPath) {
+				var alert = new UIAlertView("Show Products", "Select a Customer to proceed", null, "OK", null);
+				alert.Show();
+			} 
+			else
+				this.PerformSegue (SegueConstants.ProductSelectionIdentifier, this);
 			/*
             dataSource.Objects.Insert(0, DateTime.Now);
 
@@ -167,19 +173,19 @@ namespace Xam_iOS
         
         public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
         {
-            if (segue.Identifier == "showDetail")
-            {
-                var indexPath = TableView.IndexPathForSelectedRow;
-                var item = dataSource.Objects[indexPath.Row];
-
-               // ((DetailViewController)segue.DestinationViewController).SetDetailItem(item);
-            }
+			if (segue.Identifier == SegueConstants.ProductSelectionIdentifier) {
+				var indexPath = TableView.IndexPathForSelectedRow;
+				var item = dataSource.Objects [indexPath.Row];
+				var navController = segue.DestinationViewController as UINavigationController;
+				((ProductCollectionViewController)navController.TopViewController).TargetCustomer = item;
+			}
 			else if (segue.Identifier == SegueConstants.LoginPresentationIdentifier)
             {
 				UserWebservice.Instance.InvalidateCurrentUser();
 				dataSource.Objects.RemoveRange (0, dataSource.Objects.Count);
                 
             }
+
         }
 
 		private async Task GetAllUsersForCurrentTerritory(){

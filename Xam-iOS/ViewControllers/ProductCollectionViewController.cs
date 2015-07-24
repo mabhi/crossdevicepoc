@@ -2,27 +2,35 @@ using Foundation;
 using System;
 using System.CodeDom.Compiler;
 using UIKit;
-using System.Collections;
+using System.Collections.Generic;
 using PortableCode.Models;
+using Xam_iOS.ViewController.Constants;
+using PortableCode.Services;
 
 namespace Xam_iOS
 {
-	partial class ProductCollectionViewController : UICollectionViewController
+	 partial class ProductCollectionViewController : UICollectionViewController
 	{
 		private UIEdgeInsets SectionInset;
-		public IList<Product> Products ;
+		public List<Product> Products ;
+		public Customer TargetCustomer{get; set;}
+
 		public ProductCollectionViewController (IntPtr handle) : base (handle)
 		{
-			InitialViewSetup ();
+			 InitialViewSetup ();
 		}
 
 		public ProductCollectionViewController(UICollectionViewLayout layout) : base (layout){
-			InitialViewSetup ();
+			 InitialViewSetup ();
 		}
 			
-		public override void ViewDidLoad ()
+		public async override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+			IList<Product> allProducts = await UserWebservice.Instance.GetProductsForCountryAsync(TargetCustomer.OrgUnitEntity.ParentId);
+			Products.InsertRange(0, allProducts);
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 		}
 
 		partial void CancelBBItem_Activated (UIBarButtonItem sender)
@@ -42,7 +50,7 @@ namespace Xam_iOS
 
 		public override UICollectionViewCell GetCell (UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			var productCell = (ProductListCell)collectionView.DequeueReusableCell (ProductListCell, indexPath);
+			var productCell = (ProductListCell)collectionView.DequeueReusableCell (CellIdentifierConstants.ProductListCellIdentifier, indexPath);
 
 			Product theProduct = Products [indexPath.Row];
 
@@ -73,6 +81,7 @@ namespace Xam_iOS
 			cell.checkMarkImage.Image = null;
 			cell.Selected = false;
 
+
 		}
 
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath){
@@ -83,7 +92,8 @@ namespace Xam_iOS
 
 		private void InitialViewSetup(){
 
-			SectionInset = new UIEdgeInsets (50.0, 20.0, 50.0, 20.0);
+			SectionInset = new UIEdgeInsets (50, 20, 50, 20);
+			Products = new List<Product>();
 		}
 	}
 }

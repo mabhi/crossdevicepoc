@@ -20,16 +20,8 @@ namespace Xam_iOS
 		[Outlet]
 		public UIKit.UILabel productNameTxtLabel { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel txtProductName { get; set; }
-
 		void ReleaseDesignerOutlets ()
 		{
-			if (txtProductName != null) {
-				txtProductName.Dispose ();
-				txtProductName = null;
-			}
 		}
 	}
 }

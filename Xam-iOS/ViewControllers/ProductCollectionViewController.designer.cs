@@ -17,6 +17,10 @@ namespace Xam_iOS
 		[Outlet]
 		UIKit.UIBarButtonItem CancelBBItem { get; set; }
 
+		[Action ("CancelBBItem_Activated:")]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		partial void CancelBBItem_Activated (UIBarButtonItem sender);
+
 		void ReleaseDesignerOutlets ()
 		{
 		}

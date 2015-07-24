@@ -82,7 +82,12 @@ namespace PortableCode.Services
             return JsonConvert.DeserializeObject<OrgUnit>(responseAsString);
         }
 
-        private async Task<String> InvokeWebserviceAtURLAsync(string URLString)
+		public async Task<List<Product>> GetProductsForCountryAsync(int countryCode){
+			String responseAsString = await InvokeWebserviceAtURLAsync (Product.GetProductsInCountryURL (countryCode));
+			return JsonConvert.DeserializeObject<List<Product>> (responseAsString);
+		}
+        
+		private async Task<String> InvokeWebserviceAtURLAsync(string URLString)
         {
              var responseString = string.Empty;
 			try

@@ -8,8 +8,8 @@ using Xam_iOS.ViewController.Constants;
 
 namespace Xam_iOS
 {
-	[Register ("ProductListCell")]
-	public class ProductListCell : UICollectionViewCell
+	//[Register ("ProductListCell")]
+	public partial class ProductListCell : UICollectionViewCell
 	{
 		public static readonly NSString Key = new NSString (CellIdentifierConstants.ProductListCellIdentifier);
 

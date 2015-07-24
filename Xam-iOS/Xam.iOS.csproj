@@ -100,13 +100,13 @@
       <DependentUpon>LoginViewController.cs</DependentUpon>
     </Compile>
     <None Include="packages.config" />
-    <Compile Include="ViewControllers\ProductCollectionViewController.cs" />
-    <Compile Include="ViewControllers\ProductCollectionViewController.designer.cs">
-      <DependentUpon>ProductCollectionViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="ViewControllers\Constants\ProjectConstants.cs" />
     <Compile Include="ViewControllers\ProductListCell.designer.cs">
       <DependentUpon>ProductListCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\ProductCollectionViewController.cs" />
+    <Compile Include="ViewControllers\ProductCollectionViewController.designer.cs">
+      <DependentUpon>ProductCollectionViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -151,31 +151,36 @@
   </Target>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <ItemGroup>
+    <Folder Include="ViewControllers\Constants\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\Images.xcassets\" />
+  </ItemGroup>
+  <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Contents.json" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-568h%402x.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-29.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-58.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-114.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-57.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-87.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-80.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-120.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-180.png" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default%402x.png" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-29.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-57.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-58.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-80.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\icon-87.png" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-568h%402x.png" />
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Landscape%402x~ipad.png" />
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Landscape~ipad.png" />
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Portrait%402x~ipad.png" />
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Portrait~ipad.png" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default.png" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\cigarette.imageset\Contents.json" />
     <ImageAsset Include="Resources\Images.xcassets\cigarette.imageset\cigarette.png" />
     <ImageAsset Include="Resources\Images.xcassets\cigarette.imageset\cigarette%402x.png" />
-    <ImageAsset Include="Resources\Images.xcassets\cigarette.imageset\Contents.json" />
     <ImageAsset Include="Resources\Images.xcassets\delcheck.imageset\Contents.json" />
     <ImageAsset Include="Resources\Images.xcassets\delcheck.imageset\delcheck.png" />
     <ImageAsset Include="Resources\Images.xcassets\delcheck.imageset\delcheck%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewControllers\Constants\" />
+    <BundleResource Include="Resources\.DS_Store" />
   </ItemGroup>
 </Project>

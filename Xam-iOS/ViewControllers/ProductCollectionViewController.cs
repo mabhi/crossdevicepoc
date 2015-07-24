@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using PortableCode.Models;
 using Xam_iOS.ViewController.Constants;
 using PortableCode.Services;
+using PortableCode.Exceptions;
 
 namespace Xam_iOS
 {
@@ -27,10 +28,19 @@ namespace Xam_iOS
 		public async override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+			CollectionView.AllowsMultipleSelection = true;
 			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
-			IList<Product> allProducts = await UserWebservice.Instance.GetProductsForCountryAsync(TargetCustomer.OrgUnitEntity.ParentId);
-			Products.InsertRange(0, allProducts);
-			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+			try{
+				IList<Product> allProducts = await UserWebservice.Instance.GetProductsForAreaAsync (TargetCustomer.OrgUnitEntity.ParentId);
+				Products.InsertRange(0, allProducts);
+				CollectionView.ReloadData ();
+			}
+			catch(CustomHttpException ex){
+				Console.WriteLine ("Product List fetch {0}",ex.Message);
+			}
+			finally{
+				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+			}
 		}
 
 		partial void CancelBBItem_Activated (UIBarButtonItem sender)
@@ -60,7 +70,7 @@ namespace Xam_iOS
 				productCell.checkMarkImage.Image = null;
 			
 			productCell.productNameTxtLabel.Text = theProduct.ProductName;
-
+			productCell.productPriceTxtLabel.Text = theProduct.ProductPrice.ToString();
 			return productCell;
 		}
 

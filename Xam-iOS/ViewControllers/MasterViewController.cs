@@ -56,22 +56,23 @@ namespace Xam_iOS
             TableView.AllowsMultipleSelection = false;
             TableView.Source = dataSource = new DataSource(this);
 
+
+
         }
 
         public async override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
-
 			if (null == UserWebservice.Instance.CurrentUser)
- 			{//            if(!isLogged)
+			{//            if(!isLogged)
 				this.NavigationController.PerformSegue (SegueConstants.LoginPresentationIdentifier, this);
 				//               isLogged = true;
 			} else {
-                UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
-				await GetAllUsersForCurrentTerritory ();
-                TableView.ReloadData();
-                UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
-				
+				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+				await GetAllCustomersForCurrentTerritory ();
+				TableView.ReloadData();
+				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+
 			}
 
         }
@@ -188,13 +189,13 @@ namespace Xam_iOS
 
         }
 
-		private async Task GetAllUsersForCurrentTerritory(){
+		private async Task GetAllCustomersForCurrentTerritory(){
 			User theUser = UserWebservice.Instance.CurrentUser;
             try{
 			    List<Customer> allCustomers = await UserWebservice.Instance.GetCustomersInTerritoryAsync (theUser.TerritoryId);
                 Customer anyCustomer = allCustomers[0];
 
-                OrgUnit territory = await UserWebservice.Instance.GetParticularTerritoryAsync(anyCustomer.TerritoryId);
+				OrgUnit territory = await UserWebservice.Instance.GetParticularOrgUnitAsync(anyCustomer.TerritoryId);
                 allCustomers.ForEach((theCustomer) =>
                 {
                     theCustomer.OrgUnitEntity = territory;

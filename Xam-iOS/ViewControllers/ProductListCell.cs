@@ -14,6 +14,15 @@ namespace Xam_iOS
 		public static readonly NSString Key = new NSString (CellIdentifierConstants.ProductListCellIdentifier);
 
 		UIImageView imageView;
+		public ProductListCell(IntPtr handle) : base (handle){
+			BackgroundView = new UIView{BackgroundColor = UIColor.Orange};
+			SelectedBackgroundView = new UIView{BackgroundColor = UIColor.Green};
+
+			ContentView.Layer.BorderColor = UIColor.LightGray.CGColor;
+			ContentView.Layer.BorderWidth = 2.0f;
+			ContentView.BackgroundColor = UIColor.White;
+			ContentView.Transform = CGAffineTransform.MakeScale (0.8f, 0.8f);
+		}
 
 		[Export ("initWithFrame:")]
 		public ProductListCell (CGRect frame) : base (frame)

@@ -108,6 +108,14 @@
     <Compile Include="ViewControllers\ProductCollectionViewController.designer.cs">
       <DependentUpon>ProductCollectionViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="OrderListViewController.cs" />
+    <Compile Include="OrderListViewController.designer.cs">
+      <DependentUpon>OrderListViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomOrderListCell.cs" />
+    <Compile Include="CustomOrderListCell.designer.cs">
+      <DependentUpon>CustomOrderListCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewControllers\MasterViewController.cs" />

@@ -11,18 +11,9 @@ using UIKit;
 
 namespace Xam_iOS
 {
-	[Register ("ProductListCell")]
-	partial class ProductListCell
+	[Register ("OrderListViewController")]
+	partial class OrderListViewController
 	{
-		[Outlet]
-		public UIKit.UIImageView checkMarkImage { get; private set; }
-
-		[Outlet]
-		public UIKit.UILabel productNameTxtLabel { get; private set; }
-
-		[Outlet]
-		public UIKit.UILabel productPriceTxtLabel { get; set; }
-
 		void ReleaseDesignerOutlets ()
 		{
 		}

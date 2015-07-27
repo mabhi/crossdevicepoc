@@ -12,6 +12,7 @@ namespace Xam_iOS.ViewController.Constants
 	public static class CellIdentifierConstants{
 		public const string CustomerListCellIdentifier = "CustomerCell";
 		public const string ProductListCellIdentifier = "ProductInfoCell";
+		public const string OrderListCellIdentifier = "CreateOrderIdentifier";
 	}
 }
 
